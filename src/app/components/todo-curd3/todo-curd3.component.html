@@ -1,0 +1,66 @@
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="font-weight-bold text-center">{{isInEditMode ? 'Update Todo' : 'Add Todo'}}</h1>
+                  <div class="form-group">
+                    <label for="todoItem"><h3 class="m-0">Enter Todo</h3></label>
+                    <input type="text" class="form-control" #todoNameRef>
+                  </div>
+                  <div class="form-group">
+                    <select class="form-control" #isValueRef>
+                        <option value="yes">Completed</option>
+                        <option value="no">In-Completed</option>
+                    </select>
+                  </div>
+                  <button
+                    (click)="onAddtodo()"
+                   mat-raised-button class="w-100" color="primary" *ngIf="!isInEditMode">Add Todo</button>
+                  <button
+                    (click)="onTodoUpdate()"
+                   mat-raised-button class="w-100" color="primary" *ngIf="isInEditMode">Update Todo</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between" *ngFor="let todo of todosArr">
+                           <div>
+                             <input
+                                (click)="onChange(todo)"
+                              type="checkbox" [checked]="todo.isCompleted">
+                            <strong> {{todo.todoName}}</strong> &nbsp;&nbsp;&nbsp;&nbsp; 
+                            <span class="badge"
+                                [ngClass]="{
+                                    'badge-success' : todo.isCompleted,
+                                    'badge-danger' : !todo.isCompleted
+                                }"
+                            >
+                                {{todo.isCompleted ? 'Completed' : 'In-Completed'}}
+                            </span>
+                           </div>
+                           <div>
+                            <button
+                            (click)="onTodoEdit(todo)"
+                             mat-mini-fab class="mr-3">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button
+                                (click)="onTodoRemove(todo.id)"
+                             mat-mini-fab color="warn">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            
+                           </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="font-weight-bold text-center">{{isInEditMode ? 'Update Student' : 'Add Student'}}</h1>
+                    <div class="form-group">
+                        <label for="">Enter First Name</label>
+                        <input type="text" class="form-control" #fnameRef>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Enter Last Name</label>
+                        <input type="text" class="form-control" #lnameRef>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Enter Email Id</label>
+                        <input type="text" class="form-control" #emailRef>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Enter Contact No</label>
+                        <input type="text" class="form-control" #contactRef>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Select Status</label>
+                        <select class="form-control" #isactiveRef>
+                            <option value="yes">Active</option>
+                            <option value="no">In-Active</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button
+                         (click)="onAddStd()"
+                         mat-raised-button color="primary" class="w-100" *ngIf="!isInEditMode">Add Button</button>
+                        <button 
+                        (click)="onUpdateStd()"
+                        mat-raised-button color="primary" class="w-100" *ngIf="isInEditMode">Update Button</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Is Active</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let std of studentArr; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{std.fname}} {{std.lname}}</td>
+                            <td>{{std.email}}</td>
+                            <td>{{std.contact}}</td>
+                            <td>
+                                <input
+                                    (click)="onChange(std)"
+                                 type="checkbox" [checked]="std.isActive"> &nbsp;
+                                <span class="badge" [ngClass]="{
+                                        'badge-success' : std.isActive,
+                                        'badge-danger' : !std.isActive
+                                    }">
+                                    {{std.isActive ? 'Active' : 'In-Active'}}
+                                </span>
+                            </td>
+                            <td>
+                                <button 
+                                (click)="onEditStd(std)"
+                                mat-mini-fab color="primary">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </td>
+                            <td>
+                                <button 
+                                 (click)="onStdRemove(std.stdId)"
+                                 mat-mini-fab color="warn">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
