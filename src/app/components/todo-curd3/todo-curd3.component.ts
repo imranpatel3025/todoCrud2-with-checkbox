@@ -55,6 +55,7 @@ export class TodoCurd3Component implements OnInit {
     }
   ];
   updateId : string = ''
+
   onAddtodo(){
     let newObj : ItodoInter ={
       todoName : this.todoNameRef.nativeElement.value,
@@ -95,15 +96,18 @@ export class TodoCurd3Component implements OnInit {
   
     onTodoRemove(todoId: string) {
       // console.log(todoId)
-      let removeIndex = this.todosArr.findIndex(t => t.id === todoId)
+     let getConfirm = confirm(`Are you sure, you want to Remove with id ${todoId}`)
+     if(getConfirm){
+       let removeIndex = this.todosArr.findIndex(t => t.id === todoId)
       this.todosArr.splice(removeIndex, 1)
       this._snackBar.snackBar('Todo Removed Successfully!!!')
+     }
     }
   
     onChange(todo: ItodoInter){    
       todo.isCompleted = !todo.isCompleted
-      let getIndx = this.todosArr.findIndex(t => t.id === todo.id)
-      this.todosArr[getIndx] = todo  
+      // let getIndx = this.todosArr.findIndex(t => t.id === todo.id)
+      // this.todosArr[getIndx] = todo  
       this._snackBar.snackBar(`Todo is ${todo.isCompleted ? 'Completed' : 'In-Completed'}`) 
       
     }

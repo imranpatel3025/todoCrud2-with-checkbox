@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="m-0 text-center font-weight-bold">{{isInEditMode ? 'Update Post' : 'Add Post'}}</h1>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="">Enter Title</label>
+                        <input type="text" class="form-control" #titleRef>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Enter Description</label>
+                        <textarea type="text" class="form-control" #bodyRef>
+                        </textarea>
+                    </div>
+                    <button (click)="onAddPost()" mat-raised-button class="w-100" *ngIf="!isInEditMode">Add
+                        Post</button>
+                    <button (click)="onUpdatePost()" mat-raised-button class="w-100" *ngIf="isInEditMode">Update
+                        Post</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row" *ngIf="postsArr.length > 0 ; else noPosts">
+        <div class="col-md-4 mt-3" *ngFor="let posts of postsArr ; trackBy : trackById">
+            <div class="card h-100 cardBody">
+                <div class="card-header text-nowrap text-truncate">
+                    {{posts.title}}
+                </div>
+                <div class="card-body">
+                    {{posts.body}}
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <button (click)="onEditPost(posts)" mat-raised-button color="primary">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button [disabled]="isInEditMode && posts.id === updateId" (click)="onRemovePost(posts.id)"
+                        mat-raised-button color="warn">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noPosts>
+        <p class="alert alert-warning text-center">
+            No Post Added Yet...
+        </p>
+    </ng-template>
+</div>

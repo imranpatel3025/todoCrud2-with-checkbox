@@ -1,0 +1,85 @@
+<div class="container mt-4 bgcolor">
+    <div class="row">
+        
+           <div class="col-md-6 offset-3 mb-4">
+             <div class="card">
+                <div class="card-body">
+                    <h1 class="font-weight-bold text-center">
+                        {{isInEditMode ? 'Update Product' : 'Add Product'}}
+                    </h1>
+                    <div class="form-group">
+                        <label for="">Enter Product Name : </label>
+                        <input type="text" class="form-control" #productNameRef>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Enter Brand Name : </label>
+                        <input type="text" class="form-control" #productBrandRef>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Enter Image Url : </label>
+                        <input type="text" class="form-control" #productImgRef>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Enter Price : </label>
+                        <input type="text" class="form-control" #productPriceRef>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Enter Description Name : </label>
+                        <textarea type="text" class="form-control" #productDescriptionRef>
+                        </textarea>
+                    </div>
+                    <button
+                    (click)="onAddProduct()"
+                     mat-raised-button color="primary" class="w-100" *ngIf="!isInEditMode">Add Poduct</button>
+                    <button 
+                    (click)="onUpdateProduct()"
+                    mat-raised-button color="primary" class="w-100" *ngIf="isInEditMode">Update Poduct</button>
+                    
+                </div>
+            </div>
+           </div>
+           </div>
+        <div class="row" *ngIf="productsArr.length > 0 ; else noProduct">
+            <div class="col-md-4 mb-3" *ngFor="let prod of productsArr">
+            <mat-card class="example-card h-100">
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>{{prod.productName}}</mat-card-title>
+                    <mat-card-subtitle>{{prod.brand}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="flex-direction-column flex-grow-1">
+                    <img class="w-100" [src]="prod.img" [alt]="prod.productName" [title]="prod.productName"> 
+                    <span>
+                      
+                        {{prod.price | currency : 'INR'}}
+                    </span> <hr>
+                    <p>
+                        {{prod.description}}
+                    </p>
+                </mat-card-content>
+                <mat-divider></mat-divider>
+                <mat-card-actions class="d-flex justify-content-between">
+                    <button
+                        (click)="onEditProduct(prod)"
+                     mat-raised-button color="primary">
+                        <mat-icon> edit</mat-icon>
+                    </button>
+                    <button 
+                    (click)="onProductRemove(prod.id)"
+                    [disabled]="isInEditMode && prod.id === updateId"
+                     mat-raised-button color="warn">
+                        <mat-icon> delete</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+
+           </div> 
+        </div>
+        
+        <ng-template #noProduct>
+            <p class="alert alert-danger text-center">
+                No Product Added Yet...
+            </p>
+        </ng-template>
+    
+</div>

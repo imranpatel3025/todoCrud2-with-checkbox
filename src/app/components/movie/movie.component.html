@@ -1,0 +1,97 @@
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-6 offset-3">
+            <div class="card  bg-info text-white">
+                <div class="card-body">
+                    <h1 class="m-0 text-center font-weight-bold">
+                        {{isInEditMode ? 'Update Movie' : 'Add Movie'}}
+                    </h1> <hr class="bg-white">
+                    <div class="form-group mt-2">
+                        <label for="">Enter Movie Name : </label>
+                        <input type="text" class="form-control" #movieNameRef>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="">Enter Movie Descreption : </label>
+                        <input type="text" class="form-control" #movieDescreptionRef>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="">Enter Movie Url : </label>
+                        <input type="text" class="form-control" #movieUrlRef>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="">Movie Rating : </label>
+                        <select type="text" class="form-control" #movieRatingRef>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button 
+                        (click)="addMovie()"
+                    mat-raised-button color="warn" *ngIf="!isInEditMode" class="btn-block">Add Movie</button>
+                    <button
+                        (click)="onMovieUpdate()"
+                     mat-raised-button color="warn" *ngIf="isInEditMode" class="btn-block">Update Movie</button>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-3 mb-3" *ngFor="let movie of movieArr">
+            <div class="card movieCard h-100 text-white">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="text-nowrap text-truncate m-0 ">
+                            {{ movie.movieName }}
+                        </h2>
+                        <span class="badge"
+                            [ngClass]="{
+                                'badge-success' : movie.rating >= 7,
+                                'badge-warning' : movie.rating >=5 && movie.rating < 7,
+                                'badge-danger' : movie.rating < 5 
+                            }"
+                        >
+                            <h4 class="m-0">⭐{{ movie.rating }}</h4>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <img [src]="movie.imageUrl" class="card-img-top movie-img" [alt]="movie.movieName">
+                    <hr>
+                    <p class="card-text">
+                        {{ movie.description }}
+                    </p>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+
+                    <button mat-mini-fab (click)="onEdit(movie)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+
+                    <button
+                        [disabled]="isInEditMode && movie.id === updateId"
+                     mat-mini-fab color="warn" (click)="onDelete(movie.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

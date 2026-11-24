@@ -1,0 +1,60 @@
+
+<div class="container mb-3">
+    <div class="row">
+        <div class="col-md-6">
+           <div class="card bg-light">
+            <div class="card-body">   
+                <h2 class="m-0 text-center font-weight-bold">
+                    {{isInEditMode ? 'Update Todo' : 'Add Todo'}}
+                </h2>             
+            <div class="form-group">
+                <label for="">Enter Todo: <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" #name>
+            </div>
+            <div class="form-group">
+                <label for="">Is Completed Todo: <span class="text-danger">*</span></label>
+                <select type="text" class="form-control" #isCompleted>
+                    <option value="yes">Completed</option>
+                    <option value="no">In-Completed</option>
+                    </select>
+            </div>
+            <button
+                (click)="createNewTodo()" *ngIf="!isInEditMode"
+             mat-raised-button class="btn-block">Add Button</button>
+            <button
+                (click)="updateTodo()" *ngIf="isInEditMode"
+             mat-raised-button class="btn-block">Update Button</button>
+            </div>
+           </div>
+        </div>
+        <div class="col-md-6">
+
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let todo of todosArr">
+                    <div>
+                        <input
+                            (click)="onChange(todo)"
+                            [checked]="todo.isCompleted"
+                         type="checkbox" class="mr-2">
+                        <strong>
+                            {{todo.todoName}}
+                        </strong>                        
+                    </div>
+
+                    <div>
+                        <button
+                        (click)="onEdit(todo)"
+                         mat-mini-fab color="primary" class="mr-2">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button
+                        (click)="removeTodo(todo.todoId)"
+                         mat-mini-fab color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

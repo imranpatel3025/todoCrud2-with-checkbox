@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="col-md-8">
-            <div class="table-responsive">
+            <div class="table-responsive" *ngIf="studentArr.length > 0 ; else noStudent">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -74,7 +74,7 @@
                                 </button>
                             </td>
                             <td>
-                                <button 
+                                <button [disabled]="isInEditMode && std.stdId === updateId"
                                  (click)="onStdRemove(std.stdId)"
                                  mat-mini-fab color="warn">
                                     <mat-icon>delete</mat-icon>
@@ -84,6 +84,11 @@
                     </tbody>
                 </table>
             </div>
+            <ng-template #noStudent>
+                <p class="alert alert-warning text-center">
+                    No student added yett
+                </p>
+            </ng-template>
         </div>
     </div>
 </div>

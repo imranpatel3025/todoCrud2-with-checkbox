@@ -1,3 +1,7 @@
+<h1 class="bg-warning p-3 text-center">1st Movie Crud</h1>
+<app-movie></app-movie>
+<h1 class="bg-warning p-3 text-center">4 Todo Crud</h1>
+<app-todo4></app-todo4>
 <h1 class="bg-warning p-3 text-center">2st Todo Crud</h1>
 <div class="container mt-5">
   <div class="row">
@@ -44,7 +48,7 @@
                  mat-mini-fab color="primary" class="mr-3">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button
+                <button [disabled]="isInEditMode && todo.todoId === updateId"
                 (click)="onTodoRemove(todo.todoId)"
                  mat-mini-fab color="warn">
                   <mat-icon>delete</mat-icon>
@@ -69,3 +73,9 @@
 <app-todo-curd3></app-todo-curd3>
 <h1 class="bg-warning p-3 text-center mt-3">2nd Student Crud</h1>
 <app-student2></app-student2>
+<h1 class="bg-warning p-3 text-center mt-3">1st Post Crud</h1>
+<app-post-crud></app-post-crud>
+<h1 class="bg-warning p-3 text-center mt-3">1st Product Crud</h1>
+<app-product></app-product>
+<h1 class="bg-warning p-3 text-center mt-3">2nd Post Crud</h1>
+<app-post2></app-post2>

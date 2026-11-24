@@ -1,0 +1,62 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <div class="card">
+                <div class="card-body" [ngClass]="{
+                    
+                }">
+                    <h1 class="font-weight-bold text-center">{{isInEditMode ? 'Update Post' : 'Add Post'}}</h1> <hr>
+                    <div class="form-group">
+                        <label for="">Enter Title</label>
+                        <input required type="text" class="form-control" #titleRef>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Enter Description</label>
+                        <textarea required type="text" class="form-control" #bodyRef>
+                        </textarea>
+                    </div>
+                    <button
+                        (click)="onAddPost()"
+                     mat-raised-button color="primary" class="w-100" *ngIf="!isInEditMode">Add Post</button>
+                    <button
+                        (click)="onUpdatePost()"
+                     mat-raised-button color="primary" class="w-100" *ngIf="isInEditMode">Update Post</button>
+                </div>
+                
+               
+            </div>
+        </div>
+       
+    </div>
+    <div class="row" *ngIf="postsArr.length > 0 ; else noPosts">
+         <div class="col-md-3 mb-3 mt-4" *ngFor="let post of postsArr">
+            <div class="card h-100">
+                <div class="card-header text-nowrap text-truncate" 
+                
+                >
+                    {{post.title}}
+                </div>
+                <div class="card-body">
+                    {{post.body}}
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <button
+                     (click)="onEditPost(post)"
+                     mat-raised-button color="primary">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button [disabled]="isInEditMode && post.id === updateId"
+                        (click)="onRemovePost(post.id)"
+                     mat-raised-button color="warn">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #noPosts>
+        <p class="alert alert-warning text-center">
+            No Post Added Yet!!!
+        </p>
+    </ng-template>
+</div>

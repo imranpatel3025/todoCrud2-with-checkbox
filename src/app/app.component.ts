@@ -85,16 +85,19 @@ export class AppComponent {
 
   onTodoRemove(todoId: string) {
     // console.log(todoId)
-    let removeIndex = this.todosArr.findIndex(t => t.todoId === todoId)
+   let getConfirm = confirm(`Are you sure, you want to Remove...`)
+   if(getConfirm){
+     let removeIndex = this.todosArr.findIndex(t => t.todoId === todoId)
     this.todosArr.splice(removeIndex, 1)
     this.snckBarService.snackBar('Todo Removed Successfully!!!')
+   }
   }
 
   onChangeCheck(todo: Itodo){    
     todo.isCompleted = !todo.isCompleted
     let getIndx = this.todosArr.findIndex(t => t.todoId === todo.todoId)
     this.todosArr[getIndx] = todo   
-    
+    this.snckBarService.snackBar(`Skill is ${todo.isCompleted ? 'Completed' : 'Incomplete'}`)
   }
 }
 
